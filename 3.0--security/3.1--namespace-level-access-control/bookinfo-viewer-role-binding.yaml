@@ -1,0 +1,14 @@
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRoleBinding
+metadata:
+  name: bind-bookinfo-viewer
+  namespace: default
+spec:
+  subjects:
+  - properties:
+      source.namespace: "istio-system"
+  - properties:
+      source.namespace: "default"
+  roleRef:
+    kind: ServiceRole
+    name: "bookinfo-viewer"

@@ -1,0 +1,49 @@
+---
+# Configuration for logentry instances
+apiVersion: config.istio.io/v1alpha2
+kind: instance
+metadata:
+  name: accessloginstance
+  namespace: istio-system
+spec:
+  compiledTemplate: logentry
+  params:
+    severity: '"info"'
+    timestamp: request.time | timestamp("2019-01-01T00:00:00Z")
+    variables:
+      source: source.labels["app"] | source.workload.name | "no-mesh"
+      user: source.user | "unknown" # mtls only
+      destination: destination.labels["app"] | destination.workload.name | "no-mesh"
+      responseCode: response.code | 0
+      responseSize: response.size | 0
+      latency: response.duration | "0ms"
+      url: request.path | ""
+      userAgent: request.useragent | ""
+      method: request.method | ""
+      protocol: context.protocol | ""
+    monitored_resource_type: '"global"'
+---
+# Configuration for a Fluentd handler
+apiVersion: config.istio.io/v1alpha2
+kind: handler
+metadata:
+  name: accessloghandler
+  namespace: istio-system
+spec:
+  compiledAdapter: fluentd
+  params:
+    address: "istio-fluentd.logging.svc.cluster.local:24224"
+---
+# Rule to send logentry instances to the Fluentd handler
+apiVersion: config.istio.io/v1alpha2
+kind: rule
+metadata:
+  name: accesslogtofluentd
+  namespace: istio-system
+spec:
+  match: (context.protocol != "tcp") && ((request.path | "") != "/istio.mixer.v1.Mixer/Report") # excludes tcp and mixer-report
+  actions:
+   - handler: accessloghandler
+     instances:
+     - accessloginstance
+---

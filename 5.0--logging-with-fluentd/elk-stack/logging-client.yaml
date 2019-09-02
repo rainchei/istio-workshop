@@ -1,0 +1,92 @@
+---
+# Fluentd Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-fluentd
+  namespace: logging
+  labels:
+    app: istio-fluentd
+spec:
+  ports:
+  - name: fluentd-tcp
+    port: 24224
+    protocol: TCP
+    targetPort: 24224
+  - name: fluentd-udp
+    port: 24224
+    protocol: UDP
+    targetPort: 24224
+  selector:
+    app: istio-fluentd
+---
+# Fluentd Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: istio-fluentd
+  namespace: logging
+  labels:
+    app: istio-fluentd
+spec:
+  template:
+    metadata:
+      labels:
+        app: istio-fluentd
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - name: istio-fluentd
+        image: gcr.io/google-containers/fluentd-elasticsearch:v2.0.1
+        env:
+        - name: FLUENTD_ARGS
+          value: --no-supervisor -q
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/fluent/config.d
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: config-volume
+        configMap:
+          name: istio-fluentd-config
+---
+# Fluentd ConfigMap, contains config files.
+kind: ConfigMap
+apiVersion: v1
+data:
+  forward.input.conf: |-
+    # Takes the messages sent over TCP
+    <source>
+      type forward
+    </source>
+  output.conf: |-
+    <match **>
+       type elasticsearch
+       log_level info
+       include_tag_key true
+       host elasticsearch.logging.svc.cluster.local
+       port 9200
+       logstash_prefix "istio.accesslog"
+       logstash_format true
+       # Set the chunk limits.
+       buffer_chunk_limit 2M
+       buffer_queue_limit 8
+       flush_interval 5s
+       # Never wait longer than 5 minutes between retries.
+       max_retry_wait 30
+       # Disable the limit on the number of retries (retry forever).
+       disable_retry_limit
+       # Use multiple threads for processing.
+       num_threads 2
+    </match>
+metadata:
+  name: istio-fluentd-config
+  namespace: logging
+---

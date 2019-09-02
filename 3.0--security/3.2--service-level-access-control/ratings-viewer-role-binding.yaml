@@ -1,0 +1,11 @@
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRoleBinding
+metadata:
+  name: bind-ratings-viewer
+  namespace: default
+spec:
+  subjects:
+  - user: "cluster.local/ns/default/sa/bookinfo-reviews"
+  roleRef:
+    kind: ServiceRole
+    name: "ratings-viewer"
