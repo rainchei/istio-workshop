@@ -231,7 +231,7 @@ kubectl apply -f 5.0--logging-with-fluentd/istio-accesslog.yaml
 echo $(minikube ip) localhost-kibana.example.com | sudo tee -a /etc/hosts
 
 # send requests to generate log stream
-for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage; done
+for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage ; done
 
 # open your favorite web browser to visit 'kibana ui'
 open http://localhost-kibana.example.com
