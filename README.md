@@ -50,7 +50,7 @@ kubectl get pods --namespace default
 echo $(minikube ip) localhost-bookinfo.example.com | sudo tee -a /etc/hosts
 
 # open your favorite web browser to visit 'bookinfo ui'
-open http://localhost-bookinfo.example.com
+open http://localhost-bookinfo.example.com/productpage
 ```
 
 ![Bookinfo Diagram](./docs/images/bookinfo-diagram.png)
