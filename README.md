@@ -103,7 +103,7 @@ kubectl apply -f 2.0--traffic-management/virtual-service-all-v1.yaml
 # route all requests to 'reviews-v2', note that 'reviews-v2' sends request to 'ratings'
 kubectl apply -f 2.0--traffic-management/2.3--request-timeouts/virtual-service-reviews-v2.yaml
 
-# introduce a 5 second delay for calls to 'ratings' if signed in as 'jason',
+# introduce a 2 second delay for calls to 'ratings' if signed in as 'jason',
 # here we're simulating a problem of high latency
 kubectl apply -f 2.0--traffic-management/2.3--request-timeouts/virtual-service-ratings-delay.yaml
 
