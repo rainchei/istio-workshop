@@ -21,6 +21,9 @@ minikube start \
   --extra-config=controller-manager.cluster-signing-key-file="/var/lib/minikube/certs/ca.key" \
   --extra-config=apiserver.service-node-port-range=80-30000 \
   --vm-driver=virtualbox
+
+# to ensure minikube is running and kubectl is pointing at it
+minikube status
 ```
 
 
