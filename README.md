@@ -185,7 +185,7 @@ kubectl apply -f 4.0--monitoring/4.1--collecting-metrics/mongo-connections-metri
 echo $(minikube ip) localhost-prometheus.example.com | sudo tee -a /etc/hosts
 
 # send requests to generate metrics
-for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage; done
+for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage ; done
 
 # open your favorite web browser to visit 'prometheus ui', and search for metrics of 
 # 'istio_mongo_sent_bytes' and 'istio_mongo_received_bytes'
@@ -198,7 +198,7 @@ open http://localhost-prometheus.example.com
 echo $(minikube ip) localhost-grafana.example.com | sudo tee -a /etc/hosts
 
 # send requests to generate metrics
-for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage; done
+for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage ; done
 
 # open your favorite web browser to visit 'grafana ui', look for 'Istio Mesh Dashboard'
 open http://localhost-grafana.example.com
@@ -210,7 +210,7 @@ open http://localhost-grafana.example.com
 echo $(minikube ip) localhost-jaeger.example.com | sudo tee -a /etc/hosts
 
 # send requests to generate traces
-for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage; done
+for i in {1..10}; do curl -s -o /dev/null http://localhost-bookinfo.example.com/productpage ; done
 
 # open your favorite web browser to visit 'jaeger ui'
 open http://localhost-jaeger.example.com
