@@ -37,7 +37,7 @@ minikube status
 
 # to ensure all Istio pods are deployed and have a status of Running
 # please note that this process may take a few minutes ...
-kubectl get pods --namespace istio-system
+watch kubectl get pods --namespace istio-system
 ```
 
 ### 1.0) bookinfo-application
@@ -47,7 +47,7 @@ kubectl get pods --namespace istio-system
 kubectl apply -f 1.0--bookinfo-application/
 
 # to verify all 'bookinfo' pods are running
-kubectl get pods --namespace default
+watch kubectl get pods --namespace default
 
 # append /etc/hosts for 'bookinfo' service
 echo $(minikube ip) localhost-bookinfo.example.com | sudo tee -a /etc/hosts
