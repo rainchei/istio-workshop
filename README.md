@@ -14,9 +14,10 @@ We use minikube as the kubernetes cluster for this workshop, please follow these
 # start minikube, please change value for vm-driver based on hypervisor that you use,
 # the following we use 'virtualbox'
 
+export KUBE_VERSION="v1.15.5"
 minikube start \
   --memory=16384 --cpus=4 \
-  --kubernetes-version=v1.12.8 \
+  --kubernetes-version=$KUBE_VERSION \
   --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/minikube/certs/ca.crt" \
   --extra-config=controller-manager.cluster-signing-key-file="/var/lib/minikube/certs/ca.key" \
   --extra-config=apiserver.service-node-port-range=80-30000 \
