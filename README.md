@@ -14,7 +14,7 @@ We use minikube as the kubernetes cluster for this workshop, please follow these
 # start minikube, please change value for vm-driver based on hypervisor that you use,
 # the following we use 'virtualbox'
 
-KUBECONFIG="./kubeconfig"
+unset KUBECONFIG
 export KUBE_VERSION="v1.15.5"
 minikube start \
   --memory=16384 --cpus=4 \
