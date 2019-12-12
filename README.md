@@ -1,6 +1,6 @@
 # Introduction 
 
-This workshop basically follows [Istio Docs](https://istio.io/docs/) (v1.2.2).
+This workshop basically follows [Istio Docs](https://istio.io/docs/) (v1.4.2).
 
 
 # Prerequisite
@@ -9,7 +9,7 @@ We use minikube as the kubernetes cluster for this workshop, please follow these
 -  [install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 -  [install hypervisor](https://minikube.sigs.k8s.io/docs/reference/drivers/)
 -  [install minikube](https://minikube.sigs.k8s.io/docs/start/)
-    
+
 ```
 # start minikube, please change value for vm-driver based on hypervisor that you use,
 # the following we use 'virtualbox'
