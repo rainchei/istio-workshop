@@ -8,6 +8,9 @@ kubectl apply -f ./ns.yaml
 printf '\n== Applying: "%s" to kube-cluster ...\n' "istio-crds"
 kubectl apply -f ./istio-crds/
 
+printf '\n== Waiting for all istio CRDs to be created ...\n'
+kubectl -n istio-system wait --for=condition=complete job --all
+
 printf '\n== Applying: "%s" to kube-cluster ...\n' "istio-components"
 kubectl apply -f ./istio-install.yml
 
