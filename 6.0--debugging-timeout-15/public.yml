@@ -93,7 +93,7 @@ data:
             sleep(SLEEP_TIME)
 
             contents = urllib.request.urlopen("http://backend:4000").read()
-            
+
             self.send_response(200)
             self.send_header('Content-type','text/html')
             self.end_headers()
