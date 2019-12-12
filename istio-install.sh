@@ -9,12 +9,7 @@ printf '\n== Applying: "%s" to kube-cluster ...\n' "istio-crds"
 kubectl apply -f ./istio-crds/
 
 printf '\n== Applying: "%s" to kube-cluster ...\n' "istio-components"
-while ! [ $(kubectl get crds | grep 'istio.io\|certmanager.k8s.io' | wc -l) = 28 ]
-do
-  printf '  ... "%s" crds still not ready, will check again in 10s\n' "istio"
-  sleep 10
-done
-kubectl apply -f ./istio122-demo-auth.yaml
+kubectl apply -f ./istio-install.yml
 
 printf '\n== Applying: "%s" to kube-cluster ...\n' "istio-ingressgateway"
 kubectl apply -f ./istio-ingressgateway/
