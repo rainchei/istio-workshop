@@ -1446,11 +1446,6 @@ spec:
       nodePort: 30000
       port: 30000
       targetPort: 30000
-    -
-      name: tcp
-      nodePort: 30002
-      port: 30002
-      targetPort: 30002
 ---
 # Source: istio/charts/mixer/templates/service.yaml
 apiVersion: v1
@@ -1749,7 +1744,6 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 30000
-            - containerPort: 30002
             - containerPort: 15090
               protocol: TCP
               name: http-envoy-prom
