@@ -18,6 +18,9 @@ kind: Deployment
 metadata:
   name: publicapp-v1
 spec:
+  selector:
+    matchLabels:
+      app: publicapp
   replicas: 1
   template:
     metadata:

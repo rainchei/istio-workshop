@@ -17,6 +17,9 @@ kind: Deployment
 metadata:
   name: backend-v1
 spec:
+  selector:
+    matchLabels:
+      app: backend
   replicas: 1
   template:
     metadata:
